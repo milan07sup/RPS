@@ -1,0 +1,81 @@
+{
+  "alphabet": ["1","X","a","D","Y","N"],
+  "word": "111111111",
+  "states": {
+
+    "q0": {
+      "1": "1 R q0",
+      "λ": "D R qInitOdd"
+    },
+
+    "qInitOdd": {
+      "λ": "1 L qBackToStart"
+    },
+
+    "qBackToStart": {
+      "1": "1 L qBackToStart",
+      "X": "X L qBackToStart",
+      "a": "a L qBackToStart",
+      "D": "D L qBackToStart",
+      "λ": "λ R qFindCounter"
+    },
+
+    "qFindCounter": {
+      "1": "1 R qFindCounter",
+      "X": "X R qFindCounter",
+      "D": "D R qCounterNext"
+    },
+
+    "qCounterNext": {
+      "a": "a R qCounterNext",
+      "1": "a L qFindInput",
+      "λ": "λ L qGoCheckInput"
+    },
+
+    "qFindInput": {
+      "a": "a L qFindInput",
+      "1": "1 L qFindInput",
+      "D": "D L qConsumeInput"
+    },
+
+    "qConsumeInput": {
+      "X": "X L qConsumeInput",
+      "1": "X R qReturnCounter",
+      "λ": "N N !"
+    },
+
+    "qReturnCounter": {
+      "1": "1 R qReturnCounter",
+      "X": "X R qReturnCounter",
+      "D": "D R qCounterNext"
+    },
+
+    "qGoCheckInput": {
+      "a": "a L qGoCheckInput",
+      "D": "D L qCheckInput"
+    },
+
+    "qCheckInput": {
+      "X": "X L qCheckInput",
+      "1": "1 R qToCounterRestore",
+      "λ": "Y N !"
+    },
+
+    "qToCounterRestore": {
+      "1": "1 R qToCounterRestore",
+      "X": "X R qToCounterRestore",
+      "D": "D R qRestoreCounter"
+    },
+
+    "qRestoreCounter": {
+      "a": "1 R qRestoreCounter",
+      "1": "1 R qRestoreCounter",
+      "λ": "1 R qAppendSecond"
+    },
+
+    "qAppendSecond": {
+      "λ": "1 L qBackToStart"
+    }
+
+  }
+}
